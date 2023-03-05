@@ -1,5 +1,15 @@
 # dependencies
-/node_modules
+backend/node_modules
+frontend/node_modules
+
+# build
+frontend/build
+
+# testing
+frontend/coverage
 
 # logs 
-/logs
+backend/log
+
+# environment variables
+backend/.env
