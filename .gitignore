@@ -5,11 +5,11 @@ frontend/node_modules
 # build
 frontend/build
 
-# testing
+# testing frontend
 frontend/coverage
 
 # logs 
-backend/log
+backend/logs
 
 # environment variables
 backend/.env
