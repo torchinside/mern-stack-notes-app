@@ -58,25 +58,25 @@ const updateUser = asyncHandler(async (req, res) => {
     if(!id || !username || !Array.isArray(roles) || !roles.length || typeof active !== 'boolean')
         return res.status(400).json({ message: 'All field are required' });
 
-    const user = await User.findById(id).exec();
+    const foundedUser = await User.findById(id).exec();
 
-    if(!user)
+    if(!foundedUser)
         return res.status(400).json({ message: 'User not found' });
 
     const duplicateUser = await User.findOne({ username }).lean().exec();
     if(duplicateUser && duplicateUser?._id.toString() !== id)
         return res.status(409).json({ message: 'Duplicate username' });
     
-    user.username = username;
-    user.roles = roles;
-    user.active = active;
+    foundedUser.username = username;
+    foundedUser.roles = roles;
+    foundedUser.active = active;
 
     if(password)
-        user.password = await bcrypt.hash(password, 10)
+        foundedUser.password = await bcrypt.hash(password, 10)
     
-    const updateUser = await user.save();
+    const updateUser = await foundedUser.save();
 
-    res.json({ message: `User ${ username } updated` });
+    res.json({ message: `User ${ updateUser.username } updated` });
 
 });
 
@@ -99,9 +99,9 @@ const deleteUser = asyncHandler(async (req, res) => {
     if(!user)
         return res.status(400).json({ message: 'User not found' });
 
-    const result = await user.deleteOne();
+    const deletedUser = await user.deleteOne();
 
-    res.json({ message: `Username: ${ result.username } -- Id: ${ result._id } deleted` });
+    res.json({ message: `Username: ${ deletedUser.username } -- Id: ${ deletedUser._id } deleted` });
 });
 
 module.exports = {
