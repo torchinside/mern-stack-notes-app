@@ -4,9 +4,9 @@ const AutoIncrement = require('mongoose-sequence')(mongoose);
 const noteSchema = new mongoose.Schema(
     {
         user: {
-            type: mongoose.Schema.ObjectId,
-            required: true,
+            type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
+            required: true,
         },
         title: {
             type: String,
